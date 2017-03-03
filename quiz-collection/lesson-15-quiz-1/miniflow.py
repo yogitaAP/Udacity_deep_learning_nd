@@ -61,6 +61,25 @@ class Linear(Node):
         sumwx = np.dot(self.inbound_nodes[0].value, self.inbound_nodes[1].value);
         self.value = sumwx + self.inbound_nodes[2].value
 
+
+class Linear_np(Node):
+    def __init__(self, X, W, b):
+        # Notice the ordering of the input nodes passed to the
+        # Node constructor.
+        Node.__init__(self, [X, W, b])
+
+    def forward(self):
+        """
+        Set the value of this node to the linear transform output.
+
+        Your code goes here!
+        """
+        weights = self.inbound_nodes[0].value
+        inputs = self.inbound_nodes[1].value
+        bias = self.inbound_nodes[2].value
+        dotsum = np.dot(weights, inputs)
+        self.value = dotsum + bias
+
 class Add(Node):
     def __init__(self, x, y):
         # You could access `x` and `y` in forward with
