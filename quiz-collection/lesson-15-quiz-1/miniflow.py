@@ -8,6 +8,7 @@ class Node(object):
         self.value = None
         # Add this node as an outbound node on its inputs.
         for n in self.inbound_nodes:
+            print n
             n.outbound_nodes.append(self)
 
     # These will be implemented in a subclass.
@@ -40,6 +41,25 @@ class Input(Node):
         if value is not None:
             self.value = value
 
+
+class Linear(Node):
+    def __init__(self, inputs, weights, bias):
+        Node.__init__(self, [inputs, weights, bias])
+
+        # NOTE: The weights and bias properties here are not
+        # numbers, but rather references to other nodes.
+        # The weight and bias values are stored within the
+        # respective nodes.
+
+    def forward(self):
+        """
+        Set self.value to the value of the linear function output.
+
+        Your code goes here!
+        """
+        
+        sumwx = np.dot(self.inbound_nodes[0].value, self.inbound_nodes[1].value);
+        self.value = sumwx + self.inbound_nodes[2].value
 
 class Add(Node):
     def __init__(self, x, y):
