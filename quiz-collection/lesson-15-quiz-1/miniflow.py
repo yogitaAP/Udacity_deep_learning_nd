@@ -100,6 +100,40 @@ No need to change anything below here!
 """
 
 
+class Linear_sigmoid(Node):
+    def __init__(self, X, W, b):
+        # Notice the ordering of the input nodes passed to the
+        # Node constructor.
+        Node.__init__(self, [X, W, b])
+
+    def forward(self):
+        X = self.inbound_nodes[0].value
+        W = self.inbound_nodes[1].value
+        b = self.inbound_nodes[2].value
+        self.value = np.dot(X, W) + b
+
+class Sigmoid(Node):
+    """
+    You need to fix the `_sigmoid` and `forward` methods.
+    """
+    def __init__(self, node):
+        Node.__init__(self, [node])
+
+    def _sigmoid(self, x):
+        """
+        This method is separate from `forward` because it
+        will be used later with `backward` as well.
+
+        `x`: A numpy array-like object.
+
+        Return the result of the sigmoid function.
+
+        Your code here!
+        """
+        return 1./(1. + np.exp(-x))
+
+
+
 def topological_sort(feed_dict):
     """
     Sort generic nodes in topological order using Kahn's Algorithm.
